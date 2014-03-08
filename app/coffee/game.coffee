@@ -36,7 +36,7 @@ Crafty.scene 'Loading', () ->
                 else
                     audio = true
                     Crafty.audio.play 'background', -1, 1.0
-        Crafty.audio.add 'background', '../music/background.wav'
+        Crafty.audio.add 'background', '../../music/background.wav'
         if audio
             Crafty.audio.play 'background', -1, 1.0
         Crafty.scene 'MainMenu'
