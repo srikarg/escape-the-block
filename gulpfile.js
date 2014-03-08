@@ -40,7 +40,7 @@ gulp.task('connect', plugins.connect.server({
 }));
 
 gulp.task('watch', ['connect'], function() {
-    gulp.watch('index.html', plugins.connect.reload());
+    gulp.watch('app/index.html', plugins.connect.reload());
     gulp.watch('app/sass/**/*.scss', ['styles']);
     gulp.watch('app/coffee/**/*.coffee', ['scripts']);
 });
