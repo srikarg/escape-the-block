@@ -27,7 +27,7 @@ suffix = (number) ->
 Crafty.init width, height
 
 Crafty.scene 'Loading', () ->
-    Crafty.load ['../music/background.wav'], () ->
+    Crafty.load ['../../music/background.wav'], () ->
         Crafty.bind 'KeyDown', (e) ->
             if e.key is 77
                 if audio
