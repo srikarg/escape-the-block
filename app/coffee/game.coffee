@@ -17,7 +17,6 @@ messages = [
 ]
 timeInterval = null
 messagesInterval = null
-audio = true
 
 suffix = (number) ->
     if number is 1
@@ -27,18 +26,15 @@ suffix = (number) ->
 Crafty.init width, height
 
 Crafty.scene 'Loading', () ->
-    Crafty.load ['music/background.wav'], () ->
+    Crafty.load ['music/background.wav', 'music/jump.wav', 'music/die.wav', 'music/end.wav'], () ->
         Crafty.bind 'KeyDown', (e) ->
             if e.key is 77
-                if audio
-                    audio = false
-                    Crafty.audio.stop()
-                else
-                    audio = true
-                    Crafty.audio.play 'background', -1, 1.0
+                Crafty.audio.toggleMute()
         Crafty.audio.add 'background', 'music/background.wav'
-        if audio
-            Crafty.audio.play 'background', -1, 1.0
+        Crafty.audio.add 'jump', 'music/jump.wav'
+        Crafty.audio.add 'die', 'music/die.wav'
+        Crafty.audio.add 'end', 'music/end.wav'
+        Crafty.audio.play 'background', -1, 1.0
         Crafty.scene 'MainMenu'
     Crafty.e('2D, DOM, Text')
         .css({
@@ -159,6 +155,9 @@ Crafty.scene 'Game', () ->
             @requires 'Object, Collision, Multiway'
             @multiway playerJump, { UP_ARROW: -90 }
             @color playerColor
+            @bind 'NewDirection', (dir) ->
+                if dir.y < 0
+                    Crafty.audio.play 'jump', 1, 1.0
     Crafty.c 'Enemy',
         speed: enemyInitial
         init: () ->
@@ -170,6 +169,7 @@ Crafty.scene 'Game', () ->
                     @x = width - 60
                     @speed += enemyIncrease
             @onHit 'Player', () ->
+                Crafty.audio.play 'die', 1, 1.0
                 Crafty.scene 'EndGame'
     player = Crafty.e('Player').attr
         w: 20
@@ -241,6 +241,8 @@ Crafty.scene 'Game', () ->
             y: height/2 - 50
 
 Crafty.scene 'EndGame', () ->
+    Crafty.audio.stop 'background'
+    Crafty.audio.play 'end', -1, 1.0
     if Crafty.storage('score') is null
         Crafty.storage 'score', "#{ time }"
     else
@@ -301,6 +303,8 @@ Crafty.scene 'EndGame', () ->
                 clearInterval timeInterval
                 clearInterval messagesInterval
                 message = ''
+                Crafty.audio.stop 'end'
+                Crafty.audio.play 'background', -1, 1.0
                 Crafty.scene 'Game'
         )
         .attr
