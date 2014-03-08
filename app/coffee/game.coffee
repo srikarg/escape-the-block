@@ -15,7 +15,8 @@ messages = [
     "Try reaching 30 seconds noob."
     "Wow, you're pretty bad at this game."
     'You jump like my grandmother.'
-    ''
+    "I'll give you candy if you give up."
+    'Go back to Jump 101.'
 ]
 timeInterval = null
 messagesInterval = null
