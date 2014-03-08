@@ -14,6 +14,8 @@ messages = [
     'You can never beat your high score!'
     "Try reaching 30 seconds noob."
     "Wow, you're pretty bad at this game."
+    'You jump like my grandmother.'
+    ''
 ]
 timeInterval = null
 messagesInterval = null
@@ -155,8 +157,8 @@ Crafty.scene 'Game', () ->
             @requires 'Object, Collision, Multiway'
             @multiway playerJump, { UP_ARROW: -90 }
             @color playerColor
-            @bind 'NewDirection', (dir) ->
-                if dir.y < 0
+            @bind 'Move', (obj) ->
+                if obj._y is height - 40 and @y < height - 40
                     Crafty.audio.play 'jump', 1, 1.0
     Crafty.c 'Enemy',
         speed: enemyInitial
