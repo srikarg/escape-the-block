@@ -45,4 +45,5 @@ gulp.task('watch', ['connect'], function() {
     gulp.watch('app/coffee/**/*.coffee', ['scripts']);
 });
 
-gulp.task('default', ['clean', 'styles', 'scripts', 'connect', 'watch']);
+gulp.task('default', ['clean', 'connect', 'styles', 'scripts', 'watch']);
+gulp.task('build', ['clean', 'connect', 'styles', 'scripts']);
