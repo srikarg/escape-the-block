@@ -12,7 +12,7 @@ messages = [
     "You'll never win."
     'Stop trying.'
     'You can never beat your high score!'
-    "Try reaching 30 seconds noob."
+    "Try reaching 30 seconds, if you can that is."
     "Wow, you're pretty bad at this game."
     'You jump like my grandmother.'
     "I'll give you candy if you give up."
@@ -74,7 +74,11 @@ Crafty.scene 'MainMenu', () ->
         .replace(
             """
                 <style>
+                    h1, p {
+                        margin-bottom: 25px;
+                    }
                     h1 {
+                        margin-top: 0;
                         text-align: center;
                     }
                     p {
@@ -83,6 +87,7 @@ Crafty.scene 'MainMenu', () ->
                 </style>
                 <h1>Escape the Block!</h1>
                 <p>Press space to start playing or i for instructions!</p>
+                <p>Press m to mute.</p>
             """
         )
         .requires('Keyboard')
