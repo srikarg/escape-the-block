@@ -12,7 +12,7 @@ messages = [
     "You'll never win."
     'Stop trying.'
     'You can never beat your high score!'
-    "Try reaching 30 seconds, if you can that is."
+    "Try reaching 25 seconds, if you can that is."
     "Wow, you're pretty bad at this game."
     'You jump like my grandmother.'
     "I'll give you candy if you give up."
