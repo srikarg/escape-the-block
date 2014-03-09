@@ -4,7 +4,7 @@ playerColor = '#3498db'
 enemyColor = '#e74c3c'
 playerJump = 3.5
 enemyInitial = 10
-enemyIncrease = 0.5
+enemyIncrease = 1
 time = 0
 message = ''
 messages = [
@@ -77,16 +77,19 @@ Crafty.scene 'MainMenu', () ->
                     h1 {
                         text-align: center;
                     }
+                    p {
+                        font-size: 14px;
+                    }
                 </style>
                 <h1>Escape the Block!</h1>
-                <p>Press p to start playing or i for instructions!</p>
+                <p>Press space to start playing or i for instructions!</p>
             """
         )
         .requires('Keyboard')
         .bind('KeyDown', () ->
             if this.isDown 73
                 Crafty.scene 'Instructions'
-            else if this.isDown 80
+            else if this.isDown 'SPACE'
                 Crafty.scene 'Game'
         )
 
@@ -105,7 +108,7 @@ Crafty.scene 'Instructions', () ->
         })
         .requires 'Keyboard'
         .bind('KeyDown', () ->
-            if this.isDown 80
+            if this.isDown 'SPACE'
                 Crafty.scene 'Game'
         )
         .replace(
@@ -132,7 +135,7 @@ Crafty.scene 'Instructions', () ->
                     <li>&#8594; Try to last as long as possible!</li>
                     <li>&#8594; Press m to mute!</li>
                 </ul>
-                <p>Press p to start playing!</p>
+                <p>Press space to start playing!</p>
             """
         )
 
