@@ -1,33 +1,34 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
+var pump = require('pump');
 var port = 8000;
 
 gulp.task('styles', function() {
-    return gulp.src('app/sass/main.scss')
-        .pipe(plugins.rubySass({ style: 'compressed' }))
+    return plugins.rubySass('app/sass/main.scss', { style: 'compressed' })
         .pipe(plugins.autoprefixer('last 15 version'))
         .pipe(plugins.rename({ suffix: '.min' }))
         .pipe(gulp.dest('app/css'))
-        .pipe(plugins.connect.reload())
-        .pipe(plugins.notify({ message: 'Styles are done!' }));
+        .pipe(plugins.connect.reload());
 });
 
-gulp.task('scripts', function() {
-    return gulp.src('app/coffee/**/*.coffee')
-        .pipe(plugins.coffee())
-        .pipe(plugins.concat('main.js'))
-        .pipe(plugins.jshint.reporter('default'))
-        .pipe(plugins.rename({ suffix: '.min' }))
-        .pipe(plugins.uglify())
-        .pipe(gulp.dest('app/js/src'))
-        .pipe(plugins.connect.reload())
-        .pipe(plugins.notify({ message: 'Scripts are done!' }));
+gulp.task('scripts', function(cb) {
+    pump([
+        gulp.src('app/coffee/**/*.coffee'),
+        plugins.coffee(),
+        plugins.concat('main.js'),
+        plugins.jshint.reporter('default'),
+        plugins.rename({ suffix: '.min' }),
+        plugins.uglify(),
+        gulp.dest('app/js/src'),
+        plugins.connect.reload()
+    ],
+    cb
+    );
 });
 
 gulp.task('clean', function() {
     return gulp.src(['css', 'js'], {read: false})
-        .pipe(plugins.clean())
-        .pipe(plugins.notify({ message: 'Clean task complete.' }));
+        .pipe(plugins.clean());
 });
 
 gulp.task('connect', plugins.connect.server({
